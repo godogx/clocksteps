@@ -3,7 +3,7 @@ module github.com/godogx/clocksteps
 go 1.17
 
 require (
-	github.com/cucumber/godog v0.12.3
+	github.com/cucumber/godog v0.12.4
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/timeparser v0.2.0
 	github.com/stretchr/testify v1.7.0
