@@ -6,7 +6,7 @@ require (
 	github.com/cucumber/godog v0.12.4
 	github.com/nhatthm/go-clock v0.6.0
 	github.com/nhatthm/timeparser v0.2.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.1
 )
 
 require (
