@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	clock "github.com/nhatthm/go-clock"
+	"go.nhat.io/clock"
 )
 
 // ErrClockIsNotSet indicates that the clock must be set by either Clock.Set() or Clock.Freeze() before adding some

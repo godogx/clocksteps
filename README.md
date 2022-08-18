@@ -6,7 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/nhatthm/httpmock)](https://goreportcard.com/report/github.com/nhatthm/httpmock)
 [![GoDevDoc](https://img.shields.io/badge/dev-doc-00ADD8?logo=go)](https://pkg.go.dev/github.com/godogx/clocksteps)
 
-`clocksteps` uses [`nhatthm/go-clock`](https://github.com/nhatthm/go-clock) to provide steps for `cucumber/godog` and
+`clocksteps` uses [`nhatthm/go-clock`](https://go.nhat.io/clock) to provide steps for `cucumber/godog` and
 makes it easy to run tests with `time`.
 
 ## Prerequisites
@@ -47,7 +47,7 @@ func TestIntegration(t *testing.T) {
 }
 ```
 
-Read more about [`nhatthm/go-clock`](https://github.com/nhatthm/go-clock)
+Read more about [`nhatthm/go-clock`](https://go.nhat.io/clock)
 
 ## Steps
 
