@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/cucumber/godog"
-	"github.com/nhatthm/timeparser"
+	"go.nhat.io/timeparser"
 )
 
 // RegisterContext registers clock to godog tests.

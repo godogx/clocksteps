@@ -4,9 +4,9 @@ go 1.17
 
 require (
 	github.com/cucumber/godog v0.12.5
-	github.com/nhatthm/timeparser v0.2.0
 	github.com/stretchr/testify v1.8.0
 	go.nhat.io/clock v0.7.0
+	go.nhat.io/timeparser v0.3.0
 )
 
 require (
