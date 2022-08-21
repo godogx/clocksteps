@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/cucumber/godog"
-	"github.com/nhatthm/timeparser"
 	"github.com/stretchr/testify/assert"
+	"go.nhat.io/timeparser"
 
 	"github.com/godogx/clocksteps"
 )

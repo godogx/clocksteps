@@ -3,10 +3,10 @@
 [![GitHub Releases](https://img.shields.io/github/v/release/godogx/clocksteps)](https://github.com/godogx/clocksteps/releases/latest)
 [![Build Status](https://github.com/godogx/clocksteps/actions/workflows/test.yaml/badge.svg)](https://github.com/godogx/clocksteps/actions/workflows/test.yaml)
 [![codecov](https://codecov.io/gh/godogx/clocksteps/branch/master/graph/badge.svg?token=eTdAgDE2vR)](https://codecov.io/gh/godogx/clocksteps)
-[![Go Report Card](https://goreportcard.com/badge/github.com/nhatthm/httpmock)](https://goreportcard.com/report/github.com/nhatthm/httpmock)
+[![Go Report Card](https://goreportcard.com/badge/github.com/godogx/clocksteps)](https://goreportcard.com/report/github.com/godogx/clocksteps)
 [![GoDevDoc](https://img.shields.io/badge/dev-doc-00ADD8?logo=go)](https://pkg.go.dev/github.com/godogx/clocksteps)
 
-`clocksteps` uses [`nhatthm/go-clock`](https://go.nhat.io/clock) to provide steps for `cucumber/godog` and
+`clocksteps` uses [`go.nhat.io/clock`](https://go.nhat.io/clock) to provide steps for `cucumber/godog` and
 makes it easy to run tests with `time`.
 
 ## Prerequisites
@@ -47,7 +47,7 @@ func TestIntegration(t *testing.T) {
 }
 ```
 
-Read more about [`nhatthm/go-clock`](https://go.nhat.io/clock)
+Read more about [`go.nhat.io/clock`](https://go.nhat.io/clock)
 
 ## Steps
 
