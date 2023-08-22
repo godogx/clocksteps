@@ -3,15 +3,15 @@ module github.com/godogx/clocksteps
 go 1.17
 
 require (
-	github.com/cucumber/godog v0.12.6
+	github.com/cucumber/godog v0.13.0
 	github.com/stretchr/testify v1.8.4
 	go.nhat.io/clock v0.7.0
 	go.nhat.io/timeparser v0.3.0
 )
 
 require (
-	github.com/cucumber/gherkin-go/v19 v19.0.3 // indirect
-	github.com/cucumber/messages-go/v16 v16.0.1 // indirect
+	github.com/cucumber/gherkin/go/v26 v26.2.0 // indirect
+	github.com/cucumber/messages/go/v21 v21.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
