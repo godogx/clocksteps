@@ -47,7 +47,7 @@ func TestIntegration(t *testing.T) {
 	c := clocksteps.New()
 
 	RunSuite(t, "..", func(_ *testing.T, ctx *godog.ScenarioContext) {
-		c.RegisterContext(ctx)
+		c.RegisterSteps(ctx)
 		registerClock(c, ctx)
 	})
 }

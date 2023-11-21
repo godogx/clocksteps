@@ -10,30 +10,37 @@ import (
 )
 
 // RegisterContext registers clock to godog tests.
-func (c *Clock) RegisterContext(ctx *godog.ScenarioContext) {
-	ctx.After(func(context.Context, *godog.Scenario, error) (context.Context, error) {
+//
+// Deprecated: use RegisterSteps instead.
+func (c *Clock) RegisterContext(s *godog.ScenarioContext) {
+	c.RegisterSteps(s)
+}
+
+// RegisterSteps registers clock to godog tests.
+func (c *Clock) RegisterSteps(s *godog.ScenarioContext) {
+	s.After(func(context.Context, *godog.Scenario, error) (context.Context, error) {
 		// Unfreeze the clock.
 		c.Unfreeze()
 
 		return nil, nil
 	})
 
-	ctx.Step(`(?:the )?clock is at "([^"]*)"`, c.set)
-	ctx.Step(`(?:the )?clock is set to "([^"]*)"`, c.set)
-	ctx.Step(`sets? (?:the )?clock to "([^"]*)"`, c.set)
-	ctx.Step(`now is "([^"]*)"`, c.set)
+	s.Step(`(?:the )?clock is at "([^"]*)"`, c.set)
+	s.Step(`(?:the )?clock is set to "([^"]*)"`, c.set)
+	s.Step(`sets? (?:the )?clock to "([^"]*)"`, c.set)
+	s.Step(`now is "([^"]*)"`, c.set)
 
-	ctx.Step(`adds? ([^\s]*) to (?:the )?clock`, c.add)
-	ctx.Step(`adds? ([0-9]+) days? to (?:the )?clock`, c.addDay)
-	ctx.Step(`adds? ([0-9]+) months? to (?:the )?clock`, c.addMonth)
-	ctx.Step(`adds? ([0-9]+) years? to (?:the )?clock`, c.addYear)
-	ctx.Step(`adds? ([0-9]+) months?,? ([0-9]+) days? to (?:the )?clock`, c.addMonthDay)
-	ctx.Step(`adds? ([0-9]+) years?,? ([0-9]+) days? to (?:the )?clock`, c.addYearDay)
-	ctx.Step(`adds? ([0-9]+) years?,? ([0-9]+) months? to (?:the )?clock`, c.addYearMonth)
-	ctx.Step(`adds? ([0-9]+) years?,? ([0-9]+) months?,? ([0-9]+) days? to (?:the )?clock`, c.addDate)
+	s.Step(`adds? ([^\s]*) to (?:the )?clock`, c.add)
+	s.Step(`adds? ([0-9]+) days? to (?:the )?clock`, c.addDay)
+	s.Step(`adds? ([0-9]+) months? to (?:the )?clock`, c.addMonth)
+	s.Step(`adds? ([0-9]+) years? to (?:the )?clock`, c.addYear)
+	s.Step(`adds? ([0-9]+) months?,? ([0-9]+) days? to (?:the )?clock`, c.addMonthDay)
+	s.Step(`adds? ([0-9]+) years?,? ([0-9]+) days? to (?:the )?clock`, c.addYearDay)
+	s.Step(`adds? ([0-9]+) years?,? ([0-9]+) months? to (?:the )?clock`, c.addYearMonth)
+	s.Step(`adds? ([0-9]+) years?,? ([0-9]+) months?,? ([0-9]+) days? to (?:the )?clock`, c.addDate)
 
-	ctx.Step(`\s*freeze (?:the )?clock`, c.freeze)
-	ctx.Step(`(?:(?:release)|(?:unset)|(?:reset)) (?:the )?clock$`, c.unfreeze)
+	s.Step(`\s*freeze (?:the )?clock`, c.freeze)
+	s.Step(`(?:(?:release)|(?:unset)|(?:reset)) (?:the )?clock$`, c.unfreeze)
 }
 
 func (c *Clock) set(t string) error {
