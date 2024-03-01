@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/cucumber/godog v0.13.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	go.nhat.io/clock v0.7.0
 	go.nhat.io/timeparser v0.3.0
 )
