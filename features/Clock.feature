@@ -19,11 +19,11 @@ Feature: Without Background
         And the clock moves forward to "2022-12-31T23:59:59Z"
 
         Then the time is "2020-04-05T06:07:08Z"
-        Then the time is "2021-01-02T03:04:05Z"
-        Then the time is "2023-02-03T04:05:06Z"
-        Then the time is "2022-12-31T23:59:59Z"
-        Then the time is "2022-12-31T23:59:59Z"
-        Then the time is "2022-12-31T23:59:59Z"
+        And the time is "2021-01-02T03:04:05Z"
+        And the time is "2023-02-03T04:05:06Z"
+        And the time is "2022-12-31T23:59:59Z"
+        And the time is "2022-12-31T23:59:59Z"
+        And the time is "2022-12-31T23:59:59Z"
 
     Scenario: Add time
         Given the clock is at "2020-01-02T03:04:05Z"
