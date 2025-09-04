@@ -16,8 +16,8 @@ var _ clock.Clock = (*Clock)(nil)
 
 // Clock is a clock.Clock.
 type Clock struct {
-	timestamp *time.Time
-	mu        sync.Mutex
+	timestamps []time.Time
+	mu         sync.Mutex
 }
 
 // Now returns a fixed timestamp or time.Now().
@@ -25,11 +25,17 @@ func (c *Clock) Now() time.Time {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.timestamp == nil {
+	if len(c.timestamps) == 0 {
 		return time.Now()
 	}
 
-	return *c.timestamp
+	result := c.timestamps[0]
+
+	if len(c.timestamps) > 1 {
+		c.timestamps = c.timestamps[1:]
+	}
+
+	return result
 }
 
 // Set fixes the clock at a time.
@@ -37,7 +43,15 @@ func (c *Clock) Set(t time.Time) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	c.timestamp = timestamp(t)
+	c.timestamps = []time.Time{t}
+}
+
+// Next sets the next timestamps to be returned by Now().
+func (c *Clock) Next(t ...time.Time) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	c.timestamps = append(c.timestamps, t...)
 }
 
 // Add adds time to the clock.
@@ -45,11 +59,11 @@ func (c *Clock) Add(d time.Duration) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.timestamp == nil {
+	if len(c.timestamps) == 0 {
 		return ErrClockIsNotSet
 	}
 
-	c.timestamp = timestamp(c.timestamp.Add(d))
+	c.timestamps[0] = c.timestamps[0].Add(d)
 
 	return nil
 }
@@ -59,11 +73,11 @@ func (c *Clock) AddDate(years, months, days int) error {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	if c.timestamp == nil {
+	if len(c.timestamps) == 0 {
 		return ErrClockIsNotSet
 	}
 
-	c.timestamp = timestamp(c.timestamp.AddDate(years, months, days))
+	c.timestamps[0] = c.timestamps[0].AddDate(years, months, days)
 
 	return nil
 }
@@ -73,7 +87,7 @@ func (c *Clock) Freeze() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	c.timestamp = timestamp(time.Now())
+	c.timestamps = []time.Time{time.Now()}
 }
 
 // Unfreeze unfreezes the clock.
@@ -81,7 +95,7 @@ func (c *Clock) Unfreeze() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
-	c.timestamp = nil
+	c.timestamps = nil
 }
 
 // Clock provides clock.Clock.
@@ -92,8 +106,4 @@ func (c *Clock) Clock() clock.Clock {
 // New initiates a new Clock.
 func New() *Clock {
 	return &Clock{}
-}
-
-func timestamp(t time.Time) *time.Time {
-	return &t
 }

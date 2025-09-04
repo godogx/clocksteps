@@ -11,7 +11,7 @@ makes it easy to run tests with `time`.
 
 ## Prerequisites
 
-- `Go >= 1.16`
+- `Go >= 1.17`
 
 ## Usage
 
