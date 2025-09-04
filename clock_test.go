@@ -4,8 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/godogx/clocksteps"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+
+	"github.com/godogx/clocksteps"
 )
 
 func TestClock(t *testing.T) {
@@ -18,8 +20,8 @@ func TestClock(t *testing.T) {
 	assert.True(t, now.Before(c.Now()))
 
 	// Errors while adding time to a live clock.
-	assert.Equal(t, clocksteps.ErrClockIsNotSet, c.Add(time.Hour))
-	assert.Equal(t, clocksteps.ErrClockIsNotSet, c.AddDate(0, 0, 1))
+	require.ErrorIs(t, c.Add(time.Hour), clocksteps.ErrClockIsNotSet)
+	require.ErrorIs(t, c.AddDate(0, 0, 1), clocksteps.ErrClockIsNotSet)
 
 	// Freeze the clock.
 	c.Freeze()
@@ -42,7 +44,7 @@ func TestClock(t *testing.T) {
 	// Change the time.
 	ts = ts.Add(2 * time.Hour)
 	err := c.Add(2 * time.Hour)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	<-time.After(50 * time.Millisecond)
 
@@ -51,11 +53,22 @@ func TestClock(t *testing.T) {
 	// Change the date.
 	ts = ts.AddDate(2, 1, 3)
 	err = c.AddDate(2, 1, 3)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	<-time.After(50 * time.Millisecond)
 
 	assert.Equal(t, ts, c.Now())
+
+	// Add more timestamps.
+	ts2 := time.Date(2021, 2, 3, 4, 5, 6, 0, time.UTC)
+	c.Next(ts2)
+
+	oldTs := c.Now()
+
+	assert.Equal(t, ts, oldTs)
+	assert.NotEqual(t, ts2, oldTs)
+	assert.Equal(t, ts2, c.Now())
+	assert.Equal(t, ts2, c.Now())
 
 	// Unfreeze the clock.
 	c.Unfreeze()

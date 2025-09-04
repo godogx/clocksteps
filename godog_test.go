@@ -17,6 +17,17 @@ func TestClock_setError(t *testing.T) {
 	assert.EqualError(t, err, expectedError)
 }
 
+func TestClock_nextError(t *testing.T) {
+	t.Parallel()
+
+	c := New()
+
+	err := c.next("foobar")
+	expectedError := `parsing time "foobar" as "2006-01-02": cannot parse "foobar" as "2006"`
+
+	assert.EqualError(t, err, expectedError)
+}
+
 func TestClock_addDateError(t *testing.T) {
 	t.Parallel()
 

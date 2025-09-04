@@ -2,6 +2,7 @@ package bootstrap
 
 import (
 	"bytes"
+	"errors"
 	"flag"
 	"fmt"
 	"math/rand"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/cucumber/godog"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.nhat.io/timeparser"
 
 	"github.com/godogx/clocksteps"
@@ -64,7 +66,7 @@ func RunSuite(t *testing.T, path string, featureContext func(t *testing.T, ctx *
 	var paths []string
 
 	files, err := os.ReadDir(filepath.Clean(path))
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	paths = make([]string, 0, len(files))
 
@@ -133,7 +135,7 @@ func isNotNow(c *clocksteps.Clock) error {
 	max := now.Add(10 * time.Millisecond)
 
 	if ts.After(min) && ts.Before(max) {
-		return fmt.Errorf("the time is now")
+		return errors.New("the time is now")
 	}
 
 	return nil

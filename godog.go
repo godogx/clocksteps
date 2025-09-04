@@ -9,26 +9,23 @@ import (
 	"go.nhat.io/timeparser"
 )
 
-// RegisterContext registers clock to godog tests.
-//
-// Deprecated: use RegisterSteps instead.
-func (c *Clock) RegisterContext(s *godog.ScenarioContext) {
-	c.RegisterSteps(s)
-}
-
 // RegisterSteps registers clock to godog tests.
 func (c *Clock) RegisterSteps(s *godog.ScenarioContext) {
-	s.After(func(context.Context, *godog.Scenario, error) (context.Context, error) {
+	s.After(func(ctx context.Context, _ *godog.Scenario, _ error) (context.Context, error) {
 		// Unfreeze the clock.
 		c.Unfreeze()
 
-		return nil, nil
+		return ctx, nil //nolint: nilnil
 	})
 
 	s.Step(`(?:the )?clock is at "([^"]*)"`, c.set)
 	s.Step(`(?:the )?clock is set to "([^"]*)"`, c.set)
 	s.Step(`sets? (?:the )?clock to "([^"]*)"`, c.set)
 	s.Step(`now is "([^"]*)"`, c.set)
+
+	s.Step(`(?:the )?clock advances to "([^"]*)"`, c.next)
+	s.Step(`(?:the )?clock changes to "([^"]*)"`, c.next)
+	s.Step(`(?:the )?clock moves forward to "([^"]*)"`, c.next)
 
 	s.Step(`adds? ([^\s]*) to (?:the )?clock`, c.add)
 	s.Step(`adds? ([0-9]+) days? to (?:the )?clock`, c.addDay)
@@ -50,6 +47,17 @@ func (c *Clock) set(t string) error {
 	}
 
 	c.Set(ts)
+
+	return nil
+}
+
+func (c *Clock) next(t string) error {
+	ts, err := timeparser.Parse(t)
+	if err != nil {
+		return err
+	}
+
+	c.Next(ts)
 
 	return nil
 }
